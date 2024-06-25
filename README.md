@@ -1,1 +1,1 @@
-Objective - The aim of this project is to analyze the candidate's resume based on their resume give some matching scores and suggest some courses
+Objective - The aim of this project is to analyze the candidate's resume based on their resume give some matching scores and suggest some courses for required skills.
