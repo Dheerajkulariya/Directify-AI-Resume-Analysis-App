@@ -5,8 +5,8 @@ from mysql.connector import Error
 # Database configuration
 DB_HOST = 'localhost'
 DB_USER = 'root'
-DB_PASSWORD = '2539'
-DB_NAME = 'directify_db'
+DB_PASSWORD = 'passwd'
+DB_NAME = 'database'
 
 def get_connection():
     connection = None
