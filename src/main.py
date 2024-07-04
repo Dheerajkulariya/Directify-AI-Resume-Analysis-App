@@ -154,7 +154,7 @@ def main():
                         recommended_keywords = st_tags(label = "### Recommended skills for you.",
                                                        text = "Recommended skills generated from System", value = recommended_skills, key = "2")
                         # Display a message encouraging the user to add the recommended skills to their resume
-                        st.markdown("""<h4 style='text-align: left; color: #1ed760;'>Adding this skills to resume will boost🚀 the chances of getting a Job</h4>""",unsafe_allow_html=True)
+                        st.markdown("""<h4 style='text-align: left; color: #38A1CE;'>Adding this skills to resume will boost🚀 the chances of getting a Job</h4>""",unsafe_allow_html=True)
                         # Recommend courses based on the Data Science field
                         rec_course = course_recommender(ds_course)
                         # Break the loop after finding a match
@@ -174,7 +174,7 @@ def main():
                         recommended_keywords = st_tags(label = "### Recommended skills for you.",
                                                        text = "Recommended skills generated from system", value = recommended_skills, key = "3")
                         # Display a message encouraging the user to add the recommended skills to their resume
-                        st.markdown('''<h4 style='text-align: left; color: #1ed760;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
+                        st.markdown('''<h4 style='text-align: left; color: #38A1CE;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
                         # Recommend courses based on the Web Development field
                         rec_course = course_recommender(web_course)
                         # Break the loop after finding a match
@@ -194,7 +194,7 @@ def main():
                         recommended_keywords = st_tags(label = "### Recommended skills for you.",
                                                        text = "Recommended skills generated from System", value = recommended_skills, key = "4")
                         # Display a message encouraging the user to add the recommended skills to their resume
-                        st.markdown('''<h4 style='text-align: left; color: #1ed760;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
+                        st.markdown('''<h4 style='text-align: left; color: #38A1CE;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
                         # Recommend courses based on the Android Development field
                         rec_course = course_recommender(android_course)
                         # Break the loop after finding a match
@@ -214,7 +214,7 @@ def main():
                         recommended_keywords = st_tags(label='### Recommended skills for you.',
                                                         text='Recommended skills generated from System',value=recommended_skills,key = '5')
                         # Display a message encouraging the user to add the recommended skills to their resume
-                        st.markdown('''<h4 style='text-align: left; color: #1ed760;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
+                        st.markdown('''<h4 style='text-align: left; color: #38A1CE;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
                         # Recommend courses based on the IOS App Development field
                         rec_course = course_recommender(ios_course)
                         # Break the loop after finding a match
@@ -234,11 +234,78 @@ def main():
                         recommended_keywords = st_tags(label='### Recommended skills for you.',
                                                         text='Recommended skills generated from System',value=recommended_skills,key = '6')
                         # Display a message encouraging the user to add the recommended skills to their resume
-                        st.markdown('''<h4 style='text-align: left; color: #1ed760;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
+                        st.markdown('''<h4 style='text-align: left; color: #38A1CE;'>Adding this skills to resume will boost🚀 the chances of getting a Job💼</h4>''',unsafe_allow_html=True)
                         # Recommend courses based on the Ui-UX field
                         rec_course = course_recommender(uiux_course)
                         # Break the loop after finding a match
                         break
+
+                # Insert into table
+                # Get the current timestamp
+                ts = time.time()
+                # Format the timestamp into a date string
+                current_date = datetime.datetime.fromtimestamp(ts).strftime("%Y-%M-%D")
+                # Format the timestamp into a time string
+                current_time = datetime.datetime.fromtimestamp(ts).strftime("%H:%M:%S")
+                # Combine the date and time strings into a single timestamp string
+                timestamp = str(current_date + " " + current_time)
+
+                # Resume writing recommendation
+                # Display a subheader for resume tips
+                st.subheader("**Resume Tips & Ideas 💡**")
+                # Initialize the resume score
+                resume_score = 0
+
+                # Check if the resume text contains the keyword "Objective"
+                if "Objective" in resume_text:
+                    # Increase the resume score if "Objective" is found
+                    resume_score = resume_score + 20
+                    # Display a positive feedback message
+                    st.markdown("""<h5 style='text-align: left; color: #38A1CE;'>[+] Awesome! You have added Objective</h4>""",unsafe_allow_html=True)
+                else:
+                    # Display a negative feedback message if "Objective" is not found
+                    st.markdown("""<h5 style='text-align: left; color: #000000;'>[-] Please add your career objective, it will give your career intension to the Recruiters.</h4>""",unsafe_allow_html=True)
+
+                # Check if the resume text contains the keyword "Declaration"
+                if 'Declaration'  in resume_text:
+                    # Increase the resume score if "Declaration" is found
+                    resume_score = resume_score + 20
+                    # Display a positive feedback message
+                    st.markdown('''<h5 style='text-align: left; color: #38A1CE;'>[+] Awesome! You have added Delcaration/h4>''',unsafe_allow_html=True)
+                else:
+                    # Display a negative feedback message if "Declaration" is not found
+                    st.markdown('''<h5 style='text-align: left; color: #000000;'>[-] Please add Declaration. It will give the assurance that everything written on your resume is true and fully acknowledged by you</h4>''',unsafe_allow_html=True)
+
+                # Check if the resume text contains the keywords "Hobbies" or "Interests"
+                if 'Hobbies' or 'Interests'in resume_text:
+                    # Increase the resume score if either keyword is found
+                    resume_score = resume_score + 20
+                    # Display a positive feedback message
+                    st.markdown('''<h5 style='text-align: left; color: #38A1CE;'>[+] Awesome! You have added your Hobbies</h4>''',unsafe_allow_html=True)
+                else:
+                    # Display a negative feedback message if neither keyword is found
+                    st.markdown('''<h5 style='text-align: left; color: #000000;'>[-] Please add Hobbies. It will show your persnality to the Recruiters and give the assurance that you are fit for this role or not.</h4>''',unsafe_allow_html=True)
+
+                # Check if the resume text contains the keyword "Achievements"
+                if 'Achievements' in resume_text:
+                    # Increase the resume score if "Achievements" is found
+                    resume_score = resume_score + 20
+                    # Display a positive feedback message
+                    st.markdown('''<h5 style='text-align: left; color: #38A1CE;'>[+] Awesome! You have added your Achievements </h4>''',unsafe_allow_html=True)
+                else:
+                    # Display a negative feedback message if "Achievements" is not found
+                    st.markdown('''<h5 style='text-align: left; color: #000000;'>[-] Please add Achievements. It will show that you are capable for the required position.</h4>''',unsafe_allow_html=True)
+
+                # Check if the resume text contains the keyword "Projects"
+                if 'Projects' in resume_text:
+                    # Increase the resume score if "Projects" is found
+                    resume_score = resume_score + 20
+                    # Display a positive feedback message
+                    st.markdown('''<h5 style='text-align: left; color: #38A1CE;'>[+] Awesome! You have added your Projects</h4>''',unsafe_allow_html=True)
+                else:
+                    # Display a negative feedback message if "Projects" is not found
+                    st.markdown('''<h5 style='text-align: left; color: #000000;'>[-] Please add Projects. It will show that you have done work related the required position or not.</h4>''',unsafe_allow_html=True)
+
 
 
 
