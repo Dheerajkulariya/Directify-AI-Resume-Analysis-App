@@ -4,10 +4,9 @@ import io
 import base64
 # Import streamlit
 import streamlit as st
-# Import ResumeParser from pyresparser for extracting information from resumes
-from pyresparser import ResumeParser
-# Import LAParams, LTTextBox from pdfminer3 for configuring PDF parsing parameters and handling text boxes in PDFs
-from pdfminer3.layout import LAParams, LTTextBox
+
+# Import LAParams from pdfminer3 for configuring PDF parsing parameters
+from pdfminer3.layout import LAParams
 # Import PDFPage from pdfminer3 for iterating over pages in a PDF document
 from pdfminer3.pdfpage import PDFPage
 # Import PDFResourceManager and PDFPageInterpreter from pdfminer3 for managing resources and interpreting PDF pages
