@@ -1,6 +1,5 @@
 # Import pandas for data manipulation and analysis
 import pandas as pd
-
 # Import nltk for natural language processing tasks
 import nltk
 # Ensure that the stopwords corpus is available, downloading it if necessary
@@ -15,12 +14,16 @@ from streamlit_tags import st_tags
 from PIL import Image
 
 # Import create_database_and_table from mysql_db for create database and table if they not exists
-from mysql_db import create_database_and_table
+from mysql_db import create_database_and_table, insert_data, get_connection
 
 # Import ResumeParser from pyresparser for extracting information from resumes
 from pyresparser import ResumeParser
 
-#import warnings
+#import 
+from utils import fetch_yt_video
+
+# Import random for generating random numbers and selecting random elements
+import random
 
 # Import show_pdf from utils for show pdf
 from utils import pdf_reader, show_pdf
@@ -61,6 +64,10 @@ def main():
     st.sidebar.markdown("# Choose User")
     menu = ['User', 'Admin']
     choice = st.sidebar.selectbox('Menu', menu)
+    
+    connection = get_connection()
+    # Create the database and table if they not exists
+    create_database_and_table()
 
 # Handle user choice
     if choice == 'User':
@@ -75,7 +82,7 @@ def main():
                 time.sleep(5)
             
             # Save the uploaded resume to a local directory
-            save_image_path = "./Uploading_Resumes/" + pdf_file.name
+            save_image_path = "./uploading_resumes/" + pdf_file.name
             with open(save_image_path, "wb") as fl:
                 fl.write(pdf_file.getbuffer())
 
@@ -97,7 +104,7 @@ def main():
                 try:
                     st.text("Name :" + resume_data["name"])
                     st.text("Email :" + resume_data["email"])
-                    st.text("Contact :" + resume_data["phone_number"])
+                    st.text("Contact :" + resume_data["mobile_number"])
                     st.text("Resume pages :" + str(resume_data["no_of_pages"]))
                 except:
                     pass
@@ -118,7 +125,7 @@ def main():
                 # Display current skills
                 keywords = st_tags(label = "### Your Current Skills",
                                     text = "See our skills recommendation below",
-                                    value = resume_data["skills"],key = "1 ")
+                                    value = resume_data["skills"],key = "1  ")
                 
                 # Define skill keywords for different fields
                 ds_keyword = ['tensorflow','keras','pytorch','machine learning','deep Learning','flask','streamlit']
@@ -305,6 +312,68 @@ def main():
                 else:
                     # Display a negative feedback message if "Projects" is not found
                     st.markdown('''<h5 style='text-align: left; color: #000000;'>[-] Please add Projects. It will show that you have done work related the required position or not.</h4>''',unsafe_allow_html=True)
+
+                # Display a subheader for the resume score section.
+                st.subheader("**Resume Score📝**")
+                # Customize the progress bar color using CSS.
+                st.markdown(
+                    """
+                    <style>
+                        .stProgress > div > div > div > div {
+                        background-color: #d73b5c;
+                        } 
+                    <style>""",
+                    unsafe_allow_html=True
+                    )
+                # Create a progress bar and initialize it to 0.
+                my_bar = st.progress(0)
+                # Initialize the score variable to 0.
+                score = 0
+
+                # Iterate through the range of the resume score, updating the progress bar and score.
+                for percent_complete in range(resume_score):
+                    # Increment the score for each iteration.
+                    score += 1
+                    # Introduce a small delay for visual effect.
+                    time.sleep(0.1)
+                    # Update the progress bar with the current percentage.
+                    my_bar.progress(percent_complete + 1)
+                # Display the final resume score using a success message.
+                st.success('** Your Resume Writing Score: ' + str(score) + '**')
+                # Display a warning message explaining how the score is calculated.
+                st.warning("** Note: This score is calculated based on the content that you have in your Resume. **")
+                # Display celebratory balloons to indicate a successful completion.
+                st.balloons()
+
+                # Insert the resume data into the database.
+                insert_data(resume_data['name'], resume_data['email'],resume_data['mobile_number'], str(resume_score), timestamp,
+                             str(resume_data['no_of_pages']), reco_field, candidate_level, str(resume_data['skills']),
+                             str(recommended_skills), str(rec_course))
+                
+
+                # Display a random resume writing video
+                st.header("**Bonus Video for Resume Writing Tips💡**")
+                resume_vid = random.choice(resume_videos)
+                res_vid_title = fetch_yt_video(resume_vid)
+                st.subheader("✅ **" + res_vid_title + "**")
+                st.video(resume_vid)
+
+                # Display a random interview preparation video
+                st.header("**Bonus Video for Interview Tips💡**")
+                interview_vid = random.choice(interview_videos)
+                int_vid_title = fetch_yt_video(interview_vid)
+                st.subheader("✅ **" + int_vid_title + "**")
+                st.video(interview_vid)
+
+                # Commit the changes to the database.
+                connection.commit()
+            else:
+                st.error("Something went wrong..")
+
+
+                
+
+
 
 
 
